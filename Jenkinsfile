@@ -1,6 +1,11 @@
 pipeline {
 
-    agent any
+    agent {
+        docker {
+            image 'node:lts-alpine' 
+            args '-p 3000:3000' 
+        }
+    }
 
     stages {
 
@@ -8,6 +13,7 @@ pipeline {
         {
             steps {
                 echo 'building the applciation...'
+                sh 'npm install'
             }
         }
 
@@ -23,6 +29,16 @@ pipeline {
             steps {
                 echo 'deploying the application...'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'build was successful'
+        }
+
+        failure {
+            echo 'build has failed'
         }
     }
 }
