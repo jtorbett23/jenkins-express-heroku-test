@@ -8,7 +8,6 @@ pipeline {
         {
             steps {
                 echo 'building the applciation...'
-                sh 'npm install'
             }
         }
 
